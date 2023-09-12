@@ -3,7 +3,7 @@ Feature: LineTen services test
     Background: BaseUrl
         Given I have baseurl 'https://linetencustomerapi.azurewebsites.net/'
 
-    Scenario Outline: Check out some stuff
+    Scenario: Check out some stuff
         And I have the following request payload:
             | key     | value        |
             | Email   | john@doe.com |
@@ -13,7 +13,7 @@ Feature: LineTen services test
             | Zip     | W12 7FP      |
             | Country | UK           |
             | Notes   | Hello        |
-        # When I submit the request to endpoint ''
+         When I submit the request to endpoint 'ttte'
 
 
 
