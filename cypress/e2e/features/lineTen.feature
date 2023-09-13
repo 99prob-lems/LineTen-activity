@@ -46,15 +46,27 @@ Feature: LineTen services tests in BDD
             | Zip     | W12 7FP      |
             | Country | UK           |
             | Notes   | Hello        |
-    @focus
+
     Scenario Outline: 5 Successfull get request returns 200 response
         When I submit a 'GET' request to the following endpoint 'Api/get'
         Then Response code 200 is returned
         And I assert the response body for index 0 of get response has content:
+            | key  | value    |
+            | Name | John Doe |
+        And I assert the response body for index 1 of get response has content:
+            | key  | value    |
+            | Name | Jane Doe |
+
+    Scenario Outline: 6 Unsuccessfull get request returns 404 response
+        When I submit a 'GET' request to the following endpoint 'Api/get/1cedd95b-da95-4231-bc05-ba23a9f8b697'
+        Then Response code 404 is returned
+        And Field 'title' in response body returns 'Not Found'
+
+    Scenario Outline: 7 Successfull get request by ID returns 200 response
+        When I submit a 'GET' request to the following endpoint 'Api/get/c241a259-58b0-4936-b27d-6a393f0c95eb'
+        Then Response code 200 is returned
+        And I assert the response body has the following content:
             | key  | value                                |
             | Name | John Doe                             |
-        And I assert the response body for index 1 of get response has content:
-            | key  | value                                |
-            | Name | Jane Doe                             |
-
+            | Id   | c241a259-58b0-4936-b27d-6a393f0c95eb |
 

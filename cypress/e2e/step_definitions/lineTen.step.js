@@ -67,3 +67,10 @@ Then('I assert the response body for index {int} of get response has content:', 
   })
 });
 
+Then('Field {string} in response body returns {string}', (field, responseData) => {
+  cy.get('@Response').then(response =>{
+    const data = response.body;
+    expect(data[field]).to.eq(responseData);
+  })
+});
+
