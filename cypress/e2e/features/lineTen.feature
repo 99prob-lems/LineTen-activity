@@ -3,7 +3,7 @@ Feature: LineTen services tests in BDD
     Background: Set the baseurl
         Given I have baseurl 'https://linetencustomerapi.azurewebsites.net/'
 
-    Scenario Outline: Bad request <Scenario>
+    Scenario Outline: Bad Add request <Scenario>
         Given I have the following request payload:
             | key     | value       |
             | Name    | <Name>      |
@@ -23,7 +23,29 @@ Feature: LineTen services tests in BDD
             | 2 Unsuccessfull add request with missing Name and Email field returns 400 response |       |              | The Name field is required.  |
             | 3 Unsuccessfull add request with missing Email field returns 400 response          | James |              | The Email field is required. |
 
-
+    Scenario Outline: 4 Successfull Add request returns 200 response
+        Given I have the following request payload:
+            | key     | value        |
+            | Name    | John Doe     |
+            | Email   | john@doe.com |
+            | Phone   | 07499111222  |
+            | Address | 191 wood ln  |
+            | City    | London       |
+            | Zip     | W12 7FP      |
+            | Country | UK           |
+            | Notes   | Hello        |
+        When I submit a 'POST' request to the following endpoint 'Api/add'
+        Then Response code 200 is returned
+        And I assert the response body has the following content:
+            | key     | value       |
+            | Name    | John Doe     |
+            | Email   | john@doe.com |
+            | Phone   | 07499111222  |
+            | Address | 191 wood ln  |
+            | City    | London       |
+            | Zip     | W12 7FP      |
+            | Country | UK           |
+            | Notes   | Hello        |
 
 
 

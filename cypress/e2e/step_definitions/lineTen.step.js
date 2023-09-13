@@ -50,3 +50,11 @@ Then('The error message in the response will be {string}', (expectedMessage) => 
   })
 });
 
+Then('I assert the response body has the following content:', (dataTable) => {
+  cy.get('@Response').then(response =>{
+    dataTable.hashes().forEach(row => {
+      expect(response.body[row.key]).to.eq(row.value);
+    })
+  })
+});
+
