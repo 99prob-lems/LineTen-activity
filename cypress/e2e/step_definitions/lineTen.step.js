@@ -58,3 +58,12 @@ Then('I assert the response body has the following content:', (dataTable) => {
   })
 });
 
+Then('I assert the response body for index {int} of get response has content:', (index, dataTable) => {
+  cy.get('@Response').then(response =>{
+    const data = response.body[index];
+    dataTable.hashes().forEach(row => {
+      expect(data[row.key]).to.eq(row.value);
+    })
+  })
+});
+

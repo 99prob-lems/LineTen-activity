@@ -37,7 +37,7 @@ Feature: LineTen services tests in BDD
         When I submit a 'POST' request to the following endpoint 'Api/add'
         Then Response code 200 is returned
         And I assert the response body has the following content:
-            | key     | value       |
+            | key     | value        |
             | Name    | John Doe     |
             | Email   | john@doe.com |
             | Phone   | 07499111222  |
@@ -46,6 +46,15 @@ Feature: LineTen services tests in BDD
             | Zip     | W12 7FP      |
             | Country | UK           |
             | Notes   | Hello        |
-
+    @focus
+    Scenario Outline: 5 Successfull get request returns 200 response
+        When I submit a 'GET' request to the following endpoint 'Api/get'
+        Then Response code 200 is returned
+        And I assert the response body for index 0 of get response has content:
+            | key  | value                                |
+            | Name | John Doe                             |
+        And I assert the response body for index 1 of get response has content:
+            | key  | value                                |
+            | Name | Jane Doe                             |
 
 
