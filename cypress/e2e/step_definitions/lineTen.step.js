@@ -9,6 +9,7 @@ Given('I have baseurl {string}', (base) => {
 
 Given('I have the following request payload:', (dataTable) => {
   payload = {
+    Name: null,
     Email: null,
     Phone: null,
     Address: null,
@@ -39,12 +40,13 @@ When('I submit a {string} request to the following endpoint {string}', (httpMeth
 });
 
 Then('Response code {int} is returned', (responseCode) => {
-  cy.get('@Response').its('status').should('eq', responseCode)
+  cy.get('@Response').its('status').should('eq', responseCode);
 });
 
 Then('The error message in the response will be {string}', (expectedMessage) => {
   cy.get('@Response').then(response => {
-    expect(response.body.errors.Name[0]).to.eq(expectedMessage)
+    if(expectedMessage.includes('Name')){expect(response.body.errors.Name[0]).to.eq(expectedMessage)};
+    if(expectedMessage.includes('Email')){expect(response.body.errors.Email[0]).to.eq(expectedMessage)};
   })
 });
 
